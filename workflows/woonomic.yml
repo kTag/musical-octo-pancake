@@ -18,5 +18,5 @@ jobs:
       DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
       DISCORD_AVATAR: ${{ on.twitter.outputs.profile_image_url }}
     uses: Ilshidur/action-discord@master
-      with:
-        args: ${{ on.twitter.outputs.full_text }}
+    with:
+      args: ${{ on.twitter.outputs.full_text }}
