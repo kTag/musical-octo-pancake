@@ -1,0 +1,22 @@
+on:
+  twitter:
+    api: statuses/user_timeline
+    auth:
+      consumer_key: ${{ secrets.TWITTER_CONSUMER_KEY }}
+      consumer_secret: ${{ secrets.TWITTER_CONSUMER_SECRET }}
+      access_token: ${{ secrets.TWITTER_ACCESS_TOKEN }}
+      access_token_secret: ${{ secrets.TWITTER_ACCESS_SECRET }}
+    params:
+      screen_name: woonomic
+      exclude_replies: true,
+      include_rts: true,
+      tweet_mode: "extended",
+jobs:
+    request:
+        name: Discord notification
+        env:
+            DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+            DISCORD_AVATAR: ${{ on.twitter.outputs.profile_image_url }}
+        uses: Ilshidur/action-discord@master
+        with:
+            args: ${{ on.twitter.outputs.full_text }}
